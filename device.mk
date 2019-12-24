@@ -14,6 +14,11 @@
 # limitations under the License.
 #
 
+
+Inherit from sdm439-common
+$(call inherit-product, device/xiaomi/sdm439-common/msm8996.mk)
+
+
 # Screen density
 PRODUCT_AAPT_CONFIG := normal
 PRODUCT_AAPT_PREF_CONFIG := xhdpi
