@@ -62,7 +62,7 @@
      <bool name="config_device_wfc_ims_available">true</bool>
 
     <!-- Whether the display blanks itself when transition from a doze to a non-doze state -->
-     <bool name="config_displayBlanksAfterDoze">false</bool>
+     <bool name="config_displayBlanksAfterDoze">true</bool>
 
     <!-- If true, the doze component is not started until after the screen has been turned off
          and the screen off animation has been performed. -->
@@ -108,7 +108,7 @@
      <bool name="config_hotswapCapable">true</bool>
 
     <!-- Is the notification LED intrusive? Used to decide if there should be a disable option -->
-     <bool name="config_intrusiveNotificationLed">true</bool>
+     <bool name="config_intrusiveNotificationLed">false</bool>
 
     <!-- Indicate whether closing the lid causes the device to go to sleep and opening
          it causes the device to wake up.
@@ -239,11 +239,11 @@
      <bool name="skip_restoring_network_selection">true</bool>
 
     <!-- Height of the status bar -->
-     <dimen name="status_bar_height_portrait">25.0dip</dimen>
+     <dimen name="status_bar_height_portrait">27.5dip</dimen>
 
     <!-- The maximum range of gamma adjustment possible using the screen
          auto-brightness adjustment setting. -->
-     <fraction name="config_autoBrightnessAdjustmentMaxGamma">200.0%</fraction>
+     <fraction name="config_autoBrightnessAdjustmentMaxGamma">100.0%</fraction>
 
     <!-- User activity timeout: Maximum screen dim duration as a percentage of screen off timeout.
     
@@ -266,8 +266,8 @@
          when adapting to brighter or darker environments.  This parameter controls how quickly
          brightness changes occur in response to an observed change in light level that exceeds the
          hysteresis threshold. -->
-     <integer name="config_autoBrightnessBrighteningLightDebounce">2000</integer>
-     <integer name="config_autoBrightnessDarkeningLightDebounce">2000</integer>
+     <integer name="config_autoBrightnessBrighteningLightDebounce">1000</integer>
+     <integer name="config_autoBrightnessDarkeningLightDebounce">1000</integer>
 
     <!-- Operating volatage for bluetooth controller. 0 by default-->
      <integer name="config_bluetooth_operating_voltage_mv">0</integer>
@@ -300,7 +300,7 @@
     <!-- Screen brightness used to dim the screen when the user activity
          timeout expires.  May be less than the minimum allowed brightness setting
          that can be set by the user. -->
-     <integer name="config_screenBrightnessDim">8</integer>
+     <integer name="config_screenBrightnessDim">13</integer>
 
     <!-- Screen brightness used to dim the screen while dozing in a very low power state.
          May be less than the minimum allowed brightness setting
@@ -333,13 +333,27 @@
          Specify the component name or an empty string if none.
          Note that doze dreams are not subject to the same start conditions as ordinary dreams.
          Doze dreams will run whenever the power manager is in a dozing state. -->
-     <string name="config_dozeComponent">com.android.systemui/com.android.keyguard.doze.DozeService</string>
+     <string name="config_dozeComponent">com.miui.aod/com.miui.aod.doze.DozeService</string>
 
     <!-- Regex of wired ethernet ifaces -->
      <string name="config_ethernet_iface_regex">eth\\d</string>
 
     <!-- ImsService package name to bind to by default, if config_dynamic_bind_ims is true -->
      <string name="config_ims_package">org.codeaurora.ims</string>
+
+    <!-- The bounding path of the cutout region of the main built-in display.
+         Must either be empty if there is no cutout region, or a string that is parsable by
+         {@link android.util.PathParser}.
+    
+         The path is assumed to be specified in display coordinates with pixel units and in
+         the display's native orientation, with the origin of the coordinate system at the
+         center top of the display.
+    
+         To facilitate writing device-independent emulation overlays, the marker `@dp` can be
+         appended after the path string to interpret coordinates in dp instead of px units.
+         Note that a physical cutout should be configured in pixels for the best results.
+    -->
+     <string name="config_mainBuiltInDisplayCutout">M-59,13.521603 C-51.3411734,20.2116468 -45.8262261,25.5003131 -42.4551581,29.3876018 C-37.4060696,35.2110207 -32.5523328,41.2298059 -26.3762157,45.6443331 C-22.5105074,48.4020038 -18.1301226,50.536005 -13.5506295,51.9524108 C-9.15897443,53.3087038 -4.57948127,55 1.18885336e-05,55 C4.57574829,55 9.14772792,53.3087038 13.539383,51.9524108 C18.1263897,50.536005 22.5067744,48.4020038 26.3649692,45.6443331 C32.5523566,41.2298059 37.4060934,35.2110207 42.4551819,29.3876018 C45.8237453,25.5003131 51.3386847,20.2116468 59,13.521603 L59,0 L-59,0 L-59,13.521603 Z</string>
 
     <!-- MMS user agent string -->
      <string name="config_mms_user_agent">Android-Mms/2.0</string>
@@ -359,7 +373,7 @@
          than the size of the config_autoBrightnessLevels array.
          This must be overridden in platform specific overlays -->
     <integer-array name="config_autoBrightnessLcdBacklightValues">
-        <item>10</item>
+        <item>17</item>
         <item>21</item>
         <item>40</item>
         <item>77</item>
@@ -494,14 +508,7 @@
          the screen brightness is recalculated. See the config_dynamicHysteresisLuxLevels
          description for how the constraint value is chosen. -->
     <integer-array name="config_dynamicHysteresisBrightLevels">
-        <item>2000</item>
-        <item>2000</item>
-        <item>1000</item>
-        <item>1000</item>
-        <item>500</item>
-        <item>500</item>
-        <item>500</item>
-        <item>500</item>
+        <item>100</item>
     </integer-array>
 
     <!-- Array of hysteresis constraint values for darkening, represented as tenths of a
@@ -511,34 +518,7 @@
          the screen brightness is recalculated. See the config_dynamicHysteresisLuxLevels
          description for how the constraint value is chosen. -->
     <integer-array name="config_dynamicHysteresisDarkLevels">
-        <item>800</item>
-        <item>800</item>
-        <item>800</item>
-        <item>800</item>
-        <item>800</item>
-        <item>500</item>
-        <item>500</item>
-        <item>500</item>
-    </integer-array>
-
-    <!-- Array of ambient lux threshold values. This is used for determining hysteresis constraint
-         values by calculating the index to use for lookup and then setting the constraint value
-         to the corresponding value of the array. The new brightening hysteresis constraint value
-         is the n-th element of config_dynamicHysteresisBrightLevels, and the new darkening
-         hysteresis constraint value is the n-th element of config_dynamicHysteresisDarkLevels.
-         The (zero-based) index is calculated as follows: (MAX is the largest index of the array)
-         condition                      calculated index
-         value < lux[0]                 0
-         lux[n] <= value < lux[n+1]     n+1
-         lux[MAX] <= value              MAX+1 -->
-    <integer-array name="config_dynamicHysteresisLuxLevels">
-        <item>2</item>
-        <item>10</item>
-        <item>30</item>
-        <item>100</item>
-        <item>800</item>
-        <item>2000</item>
-        <item>4000</item>
+        <item>200</item>
     </integer-array>
 
     <!-- Vibrator pattern for a very short but reliable vibration for soft keyboard tap -->
