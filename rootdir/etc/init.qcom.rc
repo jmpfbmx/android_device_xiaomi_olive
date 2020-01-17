@@ -348,10 +348,6 @@ on post-fs-data
     chown system system /sys/devices/platform/msm_sdcc.3/polling
     chown system system /sys/devices/platform/msm_sdcc.4/polling
 
-    # Add for ir
-    chown system system /dev/lirc0
-    chmod 0666 /dev/lirc0
-
     #Create the symlink to qcn wpa_supplicant folder for ar6000 wpa_supplicant
     #symlink /data/misc/wifi/wpa_supplicant /data/system/wpa_supplicant
 
@@ -454,17 +450,17 @@ service iop /system/vendor/bin/iop
     disabled
     socket iop seqpacket 0666 root system
 
-#service qcomsysd /system/vendor/bin/qcom-system-daemon
-#    class main
-#    user root
-#    group root diag oem_2901
-#    disabled
+service qcomsysd /system/vendor/bin/qcom-system-daemon
+    class main
+    user root
+    group root diag oem_2901
+    disabled
 
-#on property:persist.vendor.qcomsysd.enabled=1
-#    enable qcomsysd
+on property:persist.vendor.qcomsysd.enabled=1
+    enable qcomsysd
 
-#on property:persist.vendor.qcomsysd.enabled=0
-#    stop qcomsysd
+on property:persist.vendor.qcomsysd.enabled=0
+    stop qcomsysd
 
 service vendor.ssr_setup /system/vendor/bin/ssr_setup
     oneshot
